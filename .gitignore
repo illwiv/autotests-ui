@@ -165,3 +165,6 @@ db/database.db
 
 # Alembic
 alembic.ini
+
+# tests
+browser-state.json

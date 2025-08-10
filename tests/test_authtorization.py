@@ -1,6 +1,8 @@
+import pytest
 from playwright.sync_api import sync_playwright, expect
 
-
+@pytest.mark.regression
+@pytest.mark.auth
 def test_wrong_email_or_password_auth():
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(

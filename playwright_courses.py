@@ -1,10 +1,7 @@
 from playwright.sync_api import sync_playwright, expect
 
 with sync_playwright() as playwright:
-    browser = playwright.chromium.launch(
-        headless=False,
-        timeout=10000
-    )
+    browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
     page = context.new_page()
 
@@ -22,10 +19,9 @@ with sync_playwright() as playwright:
     reg_button = page.get_by_test_id('registration-page-registration-button')
     reg_button.click()
 
-    page.wait_for_load_state("networkidle") # без него в json сохраняются данные не авторизованного пользователя
+    page.wait_for_load_state("networkidle")  # без него в json сохраняются данные не авторизованного пользователя
 
     context.storage_state(path='browser-state.json')
-
 
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=False)
@@ -46,4 +42,3 @@ with sync_playwright() as playwright:
 
     courses_pipeline = page.get_by_test_id('courses-list-empty-view-description-text')
     expect(courses_pipeline).to_have_text('Results from the load test pipeline will be displayed here')
-

@@ -22,6 +22,6 @@ class SidebarListItemComponent(BaseComponent):
 
         self.button.check_visible(identifier=identifier)
 
-    def navigate(self, expected_url: Pattern[str]):
-        self.button.click()
+    def navigate(self, expected_url: Pattern[str], identifier: str):
+        self.button.click(identifier=identifier)
         self.check_current_url(expected_url)

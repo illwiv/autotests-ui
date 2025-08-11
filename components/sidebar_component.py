@@ -20,10 +20,10 @@ class SidebarComponent(BaseComponent):
         self.dashboard_list_item.check_visible(title='Dashboard', identifier='dashboard')
 
     def click_logout(self):
-        self.logout_list_item.navigate(re.compile(r".*/#/auth/login"))
+        self.logout_list_item.navigate(re.compile(r".*/#/auth/login"), identifier='logout')
 
     def click_courses(self):
-        self.courses_list_item.navigate(re.compile(r".*/#/courses"))
+        self.courses_list_item.navigate(re.compile(r".*/#/courses"), identifier='courses')
 
     def click_dashboard(self):
-        self.dashboard_list_item.navigate(re.compile(r".*/#/dashboard"))
+        self.dashboard_list_item.navigate(re.compile(r".*/#/dashboard"), identifier='dashboard')

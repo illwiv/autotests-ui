@@ -1,5 +1,6 @@
 import pytest
 from playwright.sync_api import Page, Playwright
+from pathlib import Path
 
 from pages.authentication.registration_page import RegistrationPage
 
@@ -22,7 +23,11 @@ def initialize_browser_state(playwright: Playwright) -> None:
     registration_page.registration_form.fill(email="user@gmail.com", username="username", password="password")
     registration_page.reg_button.click()
 
-    page.wait_for_load_state("networkidle")
+    page.wait_for_function("""() => {
+            const user = JSON.parse(localStorage.getItem('persist:users')).user;
+            return user !== "null";
+        }""", timeout=5000)
+
     context.storage_state(path='browser-state.json')
 
 

@@ -6,7 +6,7 @@ def test_smoke_case():
     pass
 
 
-@pytest.mark.regression
+@pytest.mark.smoke
 def test_regression_case():
     pass
 
@@ -20,7 +20,7 @@ class TestSuite:
         pass
 
 
-@pytest.mark.regression
+@pytest.mark.smoke
 class TestUserAuth:
     @pytest.mark.smoke
     def test_login(self):
@@ -34,7 +34,6 @@ class TestUserAuth:
         pass
 
 
-@pytest.mark.regression
 @pytest.mark.smoke
 @pytest.mark.critical
 def test_critical_login():
@@ -47,7 +46,7 @@ class TestUserInterface:
     def test_login_button(self):
         pass
 
-    @pytest.mark.regression
+    @pytest.mark.smoke
     def test_forgot_password_link(self):
         pass
 

@@ -8,7 +8,7 @@ class Textarea(BaseElement):
 
     def fill(self, value: str, nth: int = 0, **kwargs):
         locator = self.get_locator(nth, **kwargs)
-        expect(locator).fill(value)
+        locator.fill(value)
 
     def check_have_value(self, value: str, nth: int = 0, **kwargs):
         locator = self.get_locator(nth, **kwargs)

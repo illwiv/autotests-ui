@@ -8,9 +8,10 @@ class CourseViewMenuComponent(BaseComponent):
     def __init__(self, page: Page):
         super().__init__(page)
 
-        self.menu_button = Button('course-view-menu-button')
-        self.edit_menu_button = Button('course-view-edit-menu-item')
-        self.delete_menu_button = Button('course-view-delete-menu-item')
+        self.menu_button = Button(page, locator='course-view-menu-button', name='course-view-menu-button')
+        self.edit_menu_button = Button(page, locator='course-view-edit-menu-item', name='course-view-edit-menu-item')
+        self.delete_menu_button = Button(page, locator='course-view-delete-menu-item',
+                                         name='course-view-delete-menu-item')
 
     def click_edit(self, index: int):
         self.menu_button.click(nth=index)

@@ -62,7 +62,7 @@ class TestCourses:
         create_course_page.create_course_toolbar_view.click_create_course_button()
         courses_list_page.course_view.check_visible(index=0, title='Python', max_score='101', min_score='11',
                                                     estimated_time='3 weeks')
-        courses_list_page.course_view_menu.click_edit()
+        courses_list_page.course_view_menu.click_edit(index=0)
         create_course_page.create_course_form.fill(
             title='Python1', description='Python1', estimated_time='4 weeks', max_score='102', min_score='12'
         )

@@ -1,6 +1,6 @@
 from components.base_component import BaseComponent
-from playwright.sync_api import Page, expect
-
+from playwright.sync_api import Page
+import allure
 from elements.input import Input
 from elements.textarea import Textarea
 
@@ -17,6 +17,7 @@ class CreateCourseFormComponent(BaseComponent):
         self.max_score_input = Input(page, locator='create-course-form-max-score-input', name='max_score_input')
         self.min_score_input = Input(page, locator='create-course-form-min-score-input', name='min_score_input')
 
+    @allure.step(f"Fill create course form")
     def fill(
             self,
             title: str,
@@ -35,6 +36,7 @@ class CreateCourseFormComponent(BaseComponent):
 
         self.min_score_input.fill(min_score)
 
+    @allure.step(f"Checking visibility course form")
     def check_visible(
             self,
             title: str,

@@ -1,23 +1,24 @@
-from itertools import starmap
-
 from components.base_component import BaseComponent
 from playwright.sync_api import Page, expect
 
+from elements.icon import Icon
+from elements.text import Text
+
 
 class EmptyViewComponent(BaseComponent):
-    def __init__(self, page: Page, identifier:str) -> None:
+    def __init__(self, page: Page) -> None:
         super().__init__(page)
 
-        self.empty_view_icon = page.get_by_test_id(f'{identifier}-empty-view-icon')
-        self.empty_view_title = page.get_by_test_id(f'{identifier}-empty-view-title-text')
-        self.empty_view_description = page.get_by_test_id(f'{identifier}-empty-view-description-text')
+        self.empty_view_icon = Icon(page, locator='{identifier}-empty-view-icon', name='Empty View Icon')
+        self.empty_view_title = Text(page, locator='{identifier}-empty-view-title-text', name='Empty View Title')
+        self.empty_view_description = Text(page, locator='{identifier}-empty-view-description-text',
+                                           name='Empty View Description')
 
+    def check_visible(self, title: str, description: str, identifier: str):
+        self.empty_view_icon.check_visible(identifier=identifier)
 
-    def check_visible(self, title: str, description: str):
-        expect(self.empty_view_icon).to_be_visible()
+        self.empty_view_title.check_visible(identifier=identifier)
+        self.empty_view_title.check_have_text(text=title, identifier=identifier)
 
-        expect(self.empty_view_title).to_be_visible()
-        expect(self.empty_view_title).to_have_text(title)
-
-        expect(self.empty_view_description).to_be_visible()
-        expect(self.empty_view_description).to_have_text(description)
+        self.empty_view_description.check_visible(identifier=identifier)
+        self.empty_view_description.check_have_text(text=description, identifier=identifier)

@@ -8,7 +8,7 @@ class Input(BaseElement):
 
     def fill(self, value: str, **kwargs):
         locator = self.get_locator(**kwargs)
-        expect(locator).fill(value)
+        locator.fill(value)
 
     def check_have_value(self, value: str, **kwargs):
         locator = self.get_locator(**kwargs)

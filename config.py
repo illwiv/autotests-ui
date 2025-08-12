@@ -50,5 +50,8 @@ class Settings(BaseSettings):
                         tracing_dir=tracing_dir,
                         browser_state_file=browser_state_file)
 
+    def get_base_url(self) -> str:
+        return f"{self.app_url}/"
+
 
 settings = Settings.initialize_settings()

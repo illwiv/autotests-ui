@@ -6,9 +6,9 @@ from tools.playwright.pages import init_playwright_page
 from config import settings
 
 
-@pytest.fixture
-def chromium_page(request: SubRequest, playwright: Playwright) -> Page:
-    yield from init_playwright_page(playwright, test_name=request.node.name)
+@pytest.fixture(params=settings.browsers)
+def page(request: SubRequest, playwright: Playwright) -> Page:
+    yield from init_playwright_page(playwright, test_name=request.node.name, browser_type=request.param)
 
 
 @pytest.fixture(scope="session")
@@ -31,6 +31,7 @@ def initialize_browser_state(playwright: Playwright) -> None:
     context.storage_state(path=settings.browser_state_file)
 
 
-@pytest.fixture(scope="function")
-def chromium_page_with_state(request: SubRequest, initialize_browser_state, playwright: Playwright) -> Page:
-    yield from init_playwright_page(playwright, test_name=request.node.name, storage_state=settings.browser_state_file)
+@pytest.fixture(params=settings.browsers)
+def page_with_state(request: SubRequest, initialize_browser_state, playwright: Playwright) -> Page:
+    yield from init_playwright_page(playwright, test_name=request.node.name, storage_state=settings.browser_state_file,
+                                    browser_type=request.param)

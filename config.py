@@ -1,8 +1,10 @@
 from typing import Self
-
+from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import EmailStr, FilePath, HttpUrl, DirectoryPath, BaseModel
+from pydantic import EmailStr, FilePath, HttpUrl, DirectoryPath, BaseModel, field_validator
 from enum import Enum
+
+BASE_DIR = Path(__file__).resolve().parent
 
 
 class Browser(str, Enum):
@@ -20,10 +22,14 @@ class TestUser(BaseModel):
 class TestData(BaseModel):
     image_png_file: FilePath
 
+    @field_validator("image_png_file", mode="before")
+    def resolve_relative(cls, v):
+        return BASE_DIR / Path(v)
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=BASE_DIR / ".env",
         env_file_encoding="utf-8",
         env_nested_delimiter=".",
     )
@@ -38,9 +44,9 @@ class Settings(BaseSettings):
 
     @classmethod
     def initialize_settings(cls) -> Self:
-        videos_dir = DirectoryPath("./videos")
-        tracing_dir = DirectoryPath("./tracing")
-        browser_state_file = FilePath("./browser-state.json")
+        videos_dir = DirectoryPath(BASE_DIR / "videos")
+        tracing_dir = DirectoryPath(BASE_DIR / "tracing")
+        browser_state_file = FilePath(BASE_DIR / "browser-state.json")
 
         videos_dir.mkdir(exist_ok=True)
         tracing_dir.mkdir(exist_ok=True)

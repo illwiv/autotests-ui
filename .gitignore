@@ -167,3 +167,5 @@ alembic.ini
 
 # tests
 browser-state.json
+tracing
+videos

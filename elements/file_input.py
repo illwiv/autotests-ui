@@ -1,5 +1,3 @@
-from pipes import stepkinds
-
 from elements.base_element import BaseElement
 import allure
 from tools.logger import get_logger

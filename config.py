@@ -1,3 +1,5 @@
+import platform
+import sys
 from typing import Self
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -42,6 +44,8 @@ class Settings(BaseSettings):
     tracing_dir: DirectoryPath
     allure_results_dir: DirectoryPath
     browser_state_file: FilePath
+    os_info: str
+    python_version: str
 
     @classmethod
     def initialize_settings(cls) -> Self:
@@ -49,6 +53,8 @@ class Settings(BaseSettings):
         tracing_dir = DirectoryPath(BASE_DIR / "./tracing")
         allure_results_dir = DirectoryPath(BASE_DIR / "./allure-results")
         browser_state_file = FilePath(BASE_DIR / "browser-state.json")
+        os_info = ", ".join(next(iter(s)) for s in ({platform.system()}, {platform.release()}))
+        python_version = str(sys.version)
 
         videos_dir.mkdir(exist_ok=True)
         tracing_dir.mkdir(exist_ok=True)
@@ -58,8 +64,10 @@ class Settings(BaseSettings):
         return Settings(videos_dir=videos_dir,
                         tracing_dir=tracing_dir,
                         allure_results_dir=allure_results_dir,
-                        browser_state_file=browser_state_file
-        )
+                        browser_state_file=browser_state_file,
+                        os_info=os_info,
+                        python_version=python_version,
+                        )
 
     def get_base_url(self) -> str:
         return f"{self.app_url}/"

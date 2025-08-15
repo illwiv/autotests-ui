@@ -31,7 +31,7 @@ jobs:
         run: |
           python -m pytest -m "regression" --alluredir=./allure-results -n 2
 
-      - name: Get Allure gistory
+      - name: Get Allure history
         uses: actions/checkout@v4
         if: always()
         continue-on-error: true

@@ -22,4 +22,4 @@ def init_playwright_page(
     browser.close()
 
     allure.attach.file(settings.tracing_dir.joinpath(f'{test_name}.zip'), name=f'{test_name}_trace', extension='zip')
-    allure.attach.file(page.video.path(), name=f'{test_name}_trace', extension='mp4')
+    allure.attach.file(page.video.path(), name=f'{test_name}_trace', attachment_type=allure.attachment_type.MP4)
